@@ -1,0 +1,40 @@
+{% extends 'index_detail.html' %}
+{% block delete %}
+
+        <div class="ui basic modal">
+            <div class="ui icon header">
+              <i class="archive icon"></i>
+              Удалить пост
+            </div>
+            <form action="." method="POST">
+            <div class="content">            
+                    {% csrf_token %}
+                    <p>Вы уверены что хотите удалить этот пост ?</p>
+            </div>
+            <div class="actions">
+              <div class="ui red basic cancel inverted button">
+                <i class="remove icon"></i>
+                <a href="{{ post.get_absolute_url}}">cancel</a>
+              </div>
+              <div class="ui green ok inverted button">
+                <i class="checkmark icon"></i>
+                <input type="submit" value="Confirm">
+              </div>
+            </div>
+          </form>
+          </div>
+
+<h1>Удалить пост</h1>
+<button id="show" >Show</button>
+<form action="." method="POST">
+    {% csrf_token %}
+    <p>Выуверены что хотите удалить этот пост ?</p>
+    <input type="submit" value="Confirm">
+    <a href="{{ post.get_absolute_url}}">cancel</a>
+</form>
+{% endblock  %}
+<script>
+        $('.ui.basic.modal')
+        .modal('show')
+      ;
+    </script>

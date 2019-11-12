@@ -1,0 +1,29 @@
+{%	extends	"basic.html"	%}
+{%	block	title	%}People{%	endblock	%}
+{%	block	content	%}
+{% if request.user == u %}
+<div class="container">
+	<h1>Home</h1>
+		{% for user_p in users %}
+		<a href="{{ user_p.get_absolute_url }} "> {{user_p.user.l_name}}</a>
+		{{user_p.user.username}}
+		{% endfor %}  %}
+	<h1>Sent Friend request</h1>
+	{% for s_request in sent_friend_request  %}
+		{{ s_request.dusts.username }}
+	{% endfor %}
+	<h1>Received riend request</h1>
+	{% for r_request in rec_fr_request %}
+	{{ r_request.current_user.username }}
+	<small><a href="{% url 'delete_request' r_request.dusts.username %}">принять</a></small>
+	<small><a href="{% url 'accept_fr_request' r_request.dusts.username %}">удалить</a></small>
+	{% endfor %}
+{% else %}
+	{% if button_status == 'not_friend' %}
+	<small><a href="{% url 'send_request' u.username %}">Добавить</a></small>
+	{% elif button_status == 'friend_request_sent' %}
+	<small><a href="{% url 'cancel_fr_request' u.username %}">отменить</a></small>
+{% endif %}
+</div>
+{% endif %}
+{%	endblock	%}

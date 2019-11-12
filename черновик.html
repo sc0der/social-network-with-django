@@ -1,0 +1,57 @@
+<div class="card">
+        <div class="card teal lighten-4">
+          <div class="card-content white-text">
+          <a href="{{vopros.get_absolute_url }}" class="btn-floating halfway-fab waves-effect waves-light pulse red"><i class="material-icons">comment</i></a>
+              <div class="card-panel black-text center-align "><h5>{{ vopros.title }}</h5>
+              </div>
+          </div>
+          <div class="card-action teal darken-4">
+            <i class="material-icons hoverable"><img class="avatar circle" src="{{ vopros.author.image_img }}" /></i> <b class=" black-text">{{vopros.author.username }}</b>
+    <div class="footer-copyright">
+    <div class="white-text center-align " >{{ vopros.published }}</div>
+  </div>
+            </div>
+        </div>
+        </div>
+
+
+        <div class="ui internally celled grid">
+            <div class="row">
+              <div class="three wide column">
+                <img>
+              </div>
+              <div class="ten wide column">
+                <p></p>
+              </div>
+              <div class="three wide column">
+                <img>
+              </div>
+            </div>
+            <div class="row">
+              <div class="three wide column">
+                <img>
+              </div>
+              <div class="ten wide column">
+                <p></p>
+              </div>
+              <div class="three wide column">
+                <img src="/static/img/icons/"
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+          <p><a href="{% url 'by_subject' bb.subject.pk %}">
+              {{ bb.subject.name }}</a></p>
+
+
+              <p class="text-center" ><a href="{% url 'by_subject' vopros.subject.pk %}">
+                {{ vopros.subject.name }}</a></p>

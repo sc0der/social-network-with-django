@@ -1,0 +1,14 @@
+{% extends "basic.html" %}
+{% block title %}search{% endblock %}
+{% block content %}
+<div class="b">
+        {% for sss in queryset_list %}
+        <div class="s"><div class="auth"><p>{{ sss.author.username }}</p></div>
+        <div class="ind">
+            <p>{{ sss.title }}</p>
+            <p>{{ sss.savol }}</p>
+            <p class="date">{{ sss.published }}</p>
+        </div>           
+    {% endfor %}
+    </div>
+{% endblock %}

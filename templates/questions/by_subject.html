@@ -1,0 +1,35 @@
+{% extends 'basic.html' %}
+{% block title %}{{ current_subject.name }}{% endblock %}
+{% block content %}
+<div class="ui inverted vertical pointing menu teal darken-2">
+    {% for subject in subjects %}
+        <a href="{% url 'by_subject' subject.pk %}" class="item">
+            {{ subject.name }}</a>
+    {% endfor %}
+    </div>
+    <div class="card-title white-text" style=' background:#1c8adb; width: 8%; padding:1%; position:fixed'>    <h5>{{ current_subject.name }}</h5></div>
+<div class="container">
+  <div class="row">
+         {% for vopros in savolho  %}
+         <div class="col s12 m4">
+            <div class="ui card" style="margin-bottom:15px;">
+                <div class="content teal darken-2">
+                  <a href="{% url 'user_detail' vopros.author.username %}"><img class="circle avatar image" style="width: 50px; height:50px;" src="{{ vopros.author.image_img }}"> <span class="white-text"><b>{{vopros.author.f_name }}      {{vopros.author.l_name }}</b></span></a>
+                  <div class="right floated meta white-text">{{vopros.published }}</div>
+                </div>
+                <div class="description">
+                      <div class="card-panel index hoverable">
+                          <a href="{% url 'by_subject' vopros.subject.pk %}" class="ui teal ribbon label">{{vopros.subject.name}}</a>
+                          <a href="{{ vopros.get_absolute_url }}"><h6 class="left-align" style="text-transform:uppercase; margin-bottom: 4px; font-weight: normal; color: black;">{{ vopros.title }}</h6></a>
+                          <p class="black-text">{{vopros.snippet}}</p>
+                          {% if vopros.image %}
+                            <img src="{{vopros.image_img}}" style=" width: 240px; height: 170px;">    
+                          {% endif %}
+                      </div>
+              </div>            
+              </div>        
+        </div>
+      {% endfor %}
+    </div>
+</div>
+{% endblock %}

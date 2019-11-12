@@ -1,0 +1,21 @@
+{% extends "basic.html" %}
+{% block title %}Edit your accounts{% endblock %}
+{% block content %}
+{% load materializecss %}
+<div class="container">
+    <div class="row">
+      <div class="col s8">
+          <div class="card" style="margin-left:20%; margin-top:5%; width:100%;"> 
+            <form class="card-panel" action="" method="POST"  enctype="multipart/form-data" style="display: block;">
+              <div class="card-panel teal darken-2">
+                  <h5 style="text-align: center;" class="white-text">Редактировать акаунт</h5>
+              </div>
+              {% csrf_token %}
+              {{ edit_form|materializecss }}                
+              <button class="waves-effect waves-light btn" style="width: 100%;">сохранить</button>
+            </form>                         
+        </div>
+      </div>
+    </div>
+</div>                
+{% endblock %}

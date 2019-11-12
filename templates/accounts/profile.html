@@ -1,0 +1,81 @@
+{%	extends	"basic.html"	%}
+{%	block	title	%}People{%	endblock	%}
+{%	block	content	%}
+<div class="ui card side-nav fixed" style="top:8%; position: fixed; height:100%">
+    <div class="image">
+      <img class="circle avatar image" src="{{ prof.image_img }}">
+      <p class="names white-text">{{ prof.f_name }}     {{ prof.l_name }}</p>
+    </div>
+        <table class="ui collapsing table">              
+              <tr>
+                  <th><i class="material-icons">person_pin</i> {{ prof.city }}</th></tr>
+              </tr>
+              <tr><th><i class="material-icons">school</i>
+                {{ prof.get_person_display}}</th>
+              <tr>
+                <th><i class="material-icons">perm_identity</i>   {{ prof.get_gen_display }}</th>
+              </tr>
+              <tr>
+                <th><i class="material-icons">account_balance</i>    {{ prof.get_unis_display }}</th>
+              </tr>
+              <tr>
+                <th><i class="material-icons">event</i>    {{ prof.birth_date }}</th>
+              </tr>
+              <tr>
+                <th><i class="material-icons">email</i>   {{ prof.email }} </th>
+              </tr>         
+          </table>     
+  </div>   
+  
+  <div class="container">
+    {% for bb in post.all  %}    
+    <div class="row">
+    <div class="col s8" >
+        <div class="ui card white-text" style="margin-left:20%; margin-top:15%; width:100%;" >
+            <div class="content teal darken-2">
+              <div class="right floated meta white-text">{{bb.published }}</div>
+              <img class="circle avatar image" style="width: 50px; height:50px;" src="{{MEDIA_URL}}{{ bb.author.image_img }}"> <span class="white-text"><b>{{bb.author.f_name }}      {{bb.author.l_name }}</b></span>
+            </div>
+            <div class="description">
+                  <div class="card-panel">
+                      <h6 class="center-align teal-text text-darken-3" style="text-transform:uppercase; margin-bottom: 4px; margin-top: -4px; font-weight: normal; color: black;">{{ bb.title }}</h6>
+                      <h5 class="black-text">{{bb.snippet}}</h5>
+                  </div>
+          </div>            
+          </div>        
+    </div> 
+    </div>
+    {% endfor %}
+  </div>
+  <div class="ui vertical menu">
+      <div class="item">
+        <div class="header">Products</div>
+        <div class="menu">
+          <a class="item">Enterprise</a>
+          <a class="item">Consumer</a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="header">CMS Solutions</div>
+        <div class="menu">
+          <a class="item">Rails</a>
+          <a class="item">Python</a>
+          <a class="item">PHP</a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="header">Hosting</div>
+        <div class="menu">
+          <a class="item">Shared</a>
+          <a class="item">Dedicated</a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="header">Support</div>
+        <div class="menu">
+          <a class="item">E-mail Support</a>
+          <a class="item">FAQs</a>
+        </div>
+      </div>
+    </div>
+{% endblock %}

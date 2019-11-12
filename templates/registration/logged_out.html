@@ -1,0 +1,17 @@
+{% extends "basic.html" %}
+{% block title %}logged_out{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+            <div class="col">
+                    <div style="transform: translate(50%, 50%); margin-left:-10px">
+                        <div class="card-panel teal darken-2 white-text center-align">
+                            <h3>Вы вышли из системы</h3>
+                            <p>Чтобы снова зайти, нажмите <a href="{% url 'login' %}"  class='text-dark'>сюда ⬇ <br>
+                            <img src="/static/img/icons/tj.png" style="margin-top: 3%" ></a></p>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+{% endblock %}

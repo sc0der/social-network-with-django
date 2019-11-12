@@ -1,0 +1,75 @@
+{% extends "basic.html" %}
+{% block title %}tajboard{% endblock  %}
+{% block content %}
+  <div class="left" style="position: fixed; margin-top:-47px;">
+<ul class="collapsible" style="width: 200px;">
+  <li>
+    <div class="collapsible-header teal darken-2 white-text"><i><img src="/static/img/icons/001-russia.png"></i>Ознакомление</div>
+    <div class="collapsible-body"><span class="black-text">
+      Этот сайт предназначен для студентов и преподавателей всех <b>ВУЗ-ов Республики Таджикистан</b>.
+       Сюда Вы можете вкладивать всякие вопросы и получить на них ответы. Вам не ограничивается на каком языке задавать свой вопрос, на таджикском, на русском или на английском. 
+      </span>
+    </div>
+  </li>
+  <li>
+    <div class="collapsible-header teal darken-2 white-text"><i><img src="/static/img/icons/002-tajikistan.png"></i>Шиносоӣ</div>
+    <div class="collapsible-body">
+      <span class="black-text">Ин сомона барои донишҷӯёну омӯзгорони ҳаммаи <b>Муассисаҳои таҳсилоти олии Ҷумҳурии Тоҷикистон</b> сохта шудааст.
+         Шумо метавонед ба инҷо ҳамагуна саволҳоро гузоред ва ба онҳо ҷавоби мувофиқ пайдо намоед. Забони дохилкунии савол маҳдуд нест. Ба тоҷикӣ, ба русӣ, ва ё ба англисӣ.
+      </span></div>
+  </li>
+  <li>
+    <div class="collapsible-header teal darken-2 white-text"><i><img src="/static/img/icons/003-united-states.png"></i>Introduction</div>
+    <div class="collapsible-body">
+      <h6 class="black-text">This website is for all students and teachers of <b>Academy's of Tajikistan Republic</b>.
+       You can put here any type of question and get answers to them. You can put your questions in english, russian or tajik. It is not limited for you. </h6></div>
+  </li>
+</ul>
+<ul class="collapsible" style="width: 200px;">
+    <li>
+        <div class="collapsible-header"><h4>Поиск</h4></div>
+        <div class="collapsible-body  center-align"><input type="text" placeholder='Ишите вопрос' >
+          <input class="btn" type="submit" value='искать' >
+        </div>
+      </li>
+</ul>
+</div>
+<div class="container">
+    <div style='margin-top:10%;'>
+<div class="row">
+{% if post %}       
+          {% for vopros in post  %}
+            <div class="col s12 m4">
+              <a href="{{ vopros.get_absolute_url }}">
+                <div class="ui card" style="margin-bottom:15px;">
+                    <div class="content teal darken-2">
+                      <a href="{% url 'user_detail' vopros.author.username %}"><img class="circle avatar image" style="width: 50px; height:50px;" src="{{ vopros.author.image_img }}"> <span class="white-text"><b>{{vopros.author.f_name }}      {{vopros.author.l_name }}</b></span></a>
+                      <div class="right floated meta white-text">{{vopros.published }}</div>
+                    </div>
+                    <div class="description">
+                          <div class="card-panel index hoverable">
+                              <a href="{% url 'by_subject' vopros.subject.pk %}" class="ui teal ribbon label">{{vopros.subject.name}}</a>
+                              <a href="{{ vopros.get_absolute_url }}"><h6 class="left-align" style="text-transform:uppercase; margin-bottom: 4px; font-weight: normal; color: black;">{{ vopros.title }}</h6></a>
+                              <p class="black-text">{{vopros.snippet}}</p>
+                              {% if vopros.image %}
+                                <img src="{{vopros.image_img}}" style=" width: 240px; height: 170px;">    
+                              {% endif %}
+                          </div>
+                  </div>            
+                  </div>
+                </a>        
+            </div>
+          {% endfor %}
+                {% else %}
+                    <p>There are no posts in the Board</p>
+        {% endif %}
+              </div>
+</div>
+</div>
+<div class="ui inverted vertical pointing menu teal darken-2">
+{% for subject in subject %}
+    <a href="{% url 'by_subject' subject.pk %}" class="item">
+        {{ subject.name }}</a>
+{% endfor %}
+</div>
+  {% endblock %}

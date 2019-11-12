@@ -1,0 +1,90 @@
+{% load staticfiles %}
+{% load materializecss %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <!-- <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css'> -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'frontEnd/semantic/css/semantic.min.css' %}"></script>
+        <link rel="stylesheet" href="{% static 'frontEnd/materialize/css/materialize.min.css' %}"></script>
+        <link href="{% static 'css/base.css' %}" rel="stylesheet">
+        <script type="text/javascript" src="{% static 'frontEnd/jquery/jquery-3.3.1.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'frontEnd/semantic/js/semantic.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/js.js' %}"></script>
+        <script type="text/javascript" src="{% static 'frontEnd/materialize/js/materialize.min.js' %}"></script>
+        <script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_site_key"></script>
+
+    </head>
+{% if user.is_authenticated %}
+<body>
+<div style="position:fixed; width: 100%; z-index:999; top:0%;">
+<nav  class="navbar-fixed teal darken-2">
+    <div class="navbar-fixed teal darken-2" >
+                <a href="{% url 'index' %}" class="brand-logo"><img src="/static/img/icons/tj.png" width=40px; style="margin-top: 10px; margin-left:10px; margin-right:10px;"><b style="margin-top: -10px;">TajBoard</b></a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="{% url 'dashboard' %}"><img class="avatar circle" style="width: 40px; height:40px; margin-top: 10px; margin-right:-17px;" src="{{ request.user.image_img }}"/></a></li>
+                    <li><a href="{% url 'add_savol' %}"  class="btn-floating btn-small pulse waves-effect waves-light teal accent-4" style="margin-right:-6px;"><i class="material-icons">add</i></a></li>
+                    <li><a href="{% url 'logout' %}" class="btn-floating btn-small pulse waves-effect waves-light red"><i class="material-icons">directions_run</i></a></li>
+                </ul>
+            </div>
+        </nav>
+</div>
+        <ul class="sidenav teal darken-2 white-text" id="mobile-demo">
+            <div id="slide-out" class="ui card side-nav fixed" style=" margin-top:0; position: fixed;">
+                    <div class="image">
+                            <a href="{% url 'dashboard' %}"><img class="circle avatar image" src="{{ request.user.image_img }}"><p class="names white-text">{{ request.user.f_name }}     {{ request.user.l_name }}</p></a>
+                      
+                    </div>
+                        <table class="ui collapsing table">              
+                              <tr>
+                                  <th><i class="material-icons">person_pin</i> {{ request.user.city }}</th></tr>
+                              </tr>
+                              <tr><th><i class="material-icons">school</i>
+                                {{ request.user.get_person_display}}</th>
+                              <tr>
+                                <th><i class="material-icons">perm_identity</i>   {{ request.user.get_gen_display }}</th>
+                              </tr>
+                              <tr>
+                                <th><i class="material-icons">account_balance</i>    {{ request.user.get_unis_display }}</th>
+                              </tr>
+                              <tr>
+                                <th><i class="material-icons">event</i>    {{ request.user.birth_date }}</th>
+                              </tr>
+                              <tr>
+                                <th><i class="material-icons">email</i>     {{ request.user.email }} </th>
+                                <td><a href="{% url 'edit_profile' %}">
+                                    <i class="cog icon"></i>
+                                </a></td>
+                                <li><a href="{% url 'add_savol' %}" ><i class="material-icons">add</i>Вопрос</a></li>
+            <li><a href="{% url 'logout' %}"><i class="material-icons">directions_run</i>Выход</a></li>
+                              </tr>         
+                          </table>     
+                  </div>
+        </ul>      
+{% else %}
+<div style="position:fixed; width: 100%; z-index:999; top:0%;">
+        <nav>
+    <div class="navbar-fixed">
+            <div class="navbar-fixed teal darken-2">
+                        <a href="{% url 'index' %}" class="brand-logo"><img src="/static/img/icons/tj.png" width=40px; style="margin-top: 10px; margin-left:10px; margin-right:10px;"><b style="margin-top: -10px;">TajBoard</b></a>
+                        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="{% url 'login' %}" class="btn-floating btn-small pulse waves-effect waves-light teal accent-4" style="margin-right:0px;"><i class="material-icons">arrow_back</i></a></li>
+                            <li><a href="{% url 'register' %}" class="btn-floating btn-small pulse waves-effect waves-light teal accent-4" style="margin-right:10px;"><i class="material-icons">person_add</i></a></li>
+                        </ul>
+                    </div>
+        </nav>
+        </div>
+
+                <ul class="sidenav teal darken-2" id="mobile-demo">
+                    <li><a href="{% url 'login' %}"><i class="material-icons">arrow_back</i>Вход</a></li>
+                    <li><a href="{% url 'register' %}"><i class="material-icons">person_add</i>Регистрация</a></li>
+                </ul> 
+{% endif %}
+        {% block content %}
+        {% endblock  %}
+    </body>
+
+</html>

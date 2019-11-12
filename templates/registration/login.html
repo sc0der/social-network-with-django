@@ -1,0 +1,23 @@
+{% extends "basic.html" %}
+{% load materializecss %}
+{% block title %}log-in{% endblock %}
+{% block content %}
+      <div class="container" id="1">
+      <div class="row" style='margin-top:50px;'>
+          <div class="col s8">
+            <div class=" ui card" style="margin-left:20%; margin-top:5%; width:100%;"> 
+              <h4 class="teal darken-2 white-text" style="text-align: center; padding:3%;">Вход</h4>
+              <form class="card-panel" action="" method="POST"  enctype="multipart/form-data" style="display: block;">
+                {% csrf_token %}
+                {{ form|materializecss }}                
+                <button class="waves-effect waves-light btn center-align " style="width: 100%;">Вход</button>
+              </form>
+              <div class="card-panel">
+                <p style="margin-left:35%;"><a href="{%	url "password_reset" %}">Забыли пароль?</a><br>
+                <a  href="{% url 'register' %}">Зарегистрироваться </a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>               
+{% endblock %}

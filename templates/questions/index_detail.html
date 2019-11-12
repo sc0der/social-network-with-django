@@ -1,0 +1,90 @@
+{% extends 'basic.html' %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+<div class="container" >
+    <div class="col s12">
+        <div class="ui card white-text">
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large red">
+                  <i class="large material-icons">share</i>
+                </a>
+                <ul>
+                    <li><a href="http://vk.com/share.php?url=https://evileg.com/ru/{{ post.get_absolute_url }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+                      target="_blank" rel="nofollow"><img src="/static/img/icons/006-vk.png" alt=""></a></li>
+                     <li><a href="https://twitter.com/share?url=https://evileg.com/ru/{{ post.get_absolute_url }}"
+                      target="_blank" rel="nofollow"><img src="/static/img/icons/003-twitter.png"></a></li>
+                      <li><a href="https://www.facebook.com/sharer/sharer.php?u=https://evileg.com/ru/{{ post.get_absolute_url }}"
+                        target="_blank" rel="nofollow"><img src="/static/img/icons/002-facebook.png"></a></li>
+                  {% if request.user == post.author %}                  
+                  <li><a href="{% url 'edit_savol' pk=post.id %}" class="btn-floating yellow darken-1"><i class="material-icons">edit</i></a></li>
+                  <li><a href="{% url 'post_delete' pk=post.id %}" class="btn-floating green"><i class="material-icons">delete</i></a></li>
+                  {% endif %}</d>
+                </ul>
+              </div>
+            <div class="content teal darken-2">
+              <div class="right floated meta white-text">{{post.published }}</div>
+              <a href="{% url 'user_detail' post.author.username %}"><img class="circle avatar image" style="width: 50px; height:50px;" src="{{ post.author.image_img }}"> <span class="white-text"><b>{{post.author.f_name }}      {{post.author.l_name }}</b></span></a>
+            </div>
+            <div class="description">
+                  <div class=" card-panel">
+                    <a class="ui teal tag label" style="top: -20px;
+                    left: -10%;" href="{% url 'by_subject' post.subject.pk %}">{{ post.subject.name }}</a>
+                      <a href="{{ vopros.get_absolute_url }}"><h6 class="center-align teal-text text-darken-3" style="text-transform:uppercase; margin-bottom: 4px; margin-top: -4px; font-weight: normal; color: black;">{{ post.title }}</h6></a>
+                      <h5 class="black-text">{{post.savol}}</h5>
+                      {% if post.image %}
+                                <img src="{{MEDIA_URL}} {{post.image_img}} " style=" width: 470px; height: 250px;">    
+                      {% endif %}
+                  </div>
+            <div class="content teal darken-2" style="padding: 10px;">
+              <span class="right floated">
+                  <form action=" {% url 'like_post' %} " method="POST">
+                      {% csrf_token %}
+                      {% if is_liked %}
+                        <button class="white-text teal darken-2 hoverable" style="border: none; margin-left: -10%;" type="submit" name="post_id" value="{{post.id}}"><i class="material-icons">thumb_down</i></button>
+                      {% else %}
+                        <button class="white-text teal darken-2 hoverable " style="border: none;" type="submit" name="post_id" value="{{post.id}}"> <i class="material-icons">thumb_up</i></button>
+                      {% endif %}
+                    </form>
+              </span>
+              <span class=" card-footer">
+                  <i class="material-icons">favorite_border</i>{{total_likes}}
+              </span>
+        </div>            
+      </div>        
+    </div>
+    <div class="commblock">
+      <h4>Ответы</h4>
+        {% for comment in comments %}
+        <div class="card-panel sert">
+          <div class="ui comments">
+            <div class="comment">
+                <a class=" avatar ui circular image" href="{% url 'user_detail' comment.author.username %}"><img src="{{ comment.author.image_img }}" style="width:50px; height:40px;"></a>
+              <div class="content">
+                <a class="author">{{comment.author.f_name }}    {{comment.author.l_name }}</a>
+                {{comment.author.get_person_display }}
+                <div class="metadata">
+                <div class="date">{{ comment.created_date }} </div>
+              </div>
+              <div class="text">
+                <p>{{ comment.text|linebreaks }}</p>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    {% empty %}<p class="text-center">Пока нет ответов<hr/></p> 
+    {% endfor %}
+    {% if user.is_authenticated %}              
+    <form action="" method="POST">
+            <i><img src="{{ request.user.image_img }}" class="ui circular image" style="width:40px; height:40px;"></i>
+      {% csrf_token %}
+      <div class="input-field col s6">
+          <p>{{comment_form.as_p}}</p>
+          <button class="btn waves-effect waves-light" type="submit" name="action">Отправить
+          </button>
+        </div>
+        </form>
+    {% endif %} 
+  </div>
+  </div>
+{% endblock %}

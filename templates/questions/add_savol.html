@@ -1,0 +1,23 @@
+{% extends 'basic.html' %}
+{% block title %}add_savol{% endblock %}
+{% block content %}
+{% load materializecss %}
+<div class="container">
+        <div class="row">
+          <div class="col s8">
+            <div class=" ui card" style="margin-left:20%; margin-top:5%; width:100%;"> 
+              <h3 style="text-align: center; margin:10px;">Задать вопрос</h3>
+              <form class="card-panel" action=" {% url 'add_savol' %}"  method="POST"  enctype="multipart/form-data" style="display: block;">
+                {% csrf_token %}
+                {{ savolform|materializecss }}                
+                <button class="waves-effect waves-light btn center-align" style="width: 100%;">Задать</button>
+              </form>
+            </div>
+          </div>
+          <div class="col s12" style="position: absolute;
+          left: 71%;">
+            <img src="/static/img/backeground/q.png" width="266" alt="">
+          </div>
+        </div>
+      </div>
+{% endblock %}
